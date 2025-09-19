@@ -1,15 +1,30 @@
 package com.example.copywritingdemo.entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
-public class User extends BaseEntity {
+@Table(name = "users") // 表名避免和关键字冲突
+public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
-    private String password;
-    private String role;
 
-    // Getter & Setter
+    @Column(nullable = false, length = 100)
+    private String password;
+
+    // getter/setter
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -24,13 +39,5 @@ public class User extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

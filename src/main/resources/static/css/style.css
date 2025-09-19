@@ -1,104 +1,94 @@
-/* 页面背景 */
+* { box-sizing: border-box; }
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f7fc;
     margin: 0;
-    padding: 20px;
-}
-
-/* 白色容器 */
-.container {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 1200px;
-    margin: auto;
-}
-
-h2 {
-    margin-bottom: 20px;
-}
-
-/* 顶部操作栏 */
-.top-actions {
+    padding: 20px;   /* 页面边距，保证卡片不贴死 */
+    color: #111;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    justify-content: center;
 }
 
-.logout {
-    color: #dc3545;
-    text-decoration: none;
-    font-weight: bold;
+/* 主卡片 */
+.main-card {
+    width: 100%;               /* 撑满页面宽度 */
+    max-width: 100%;           /* 不限制最大宽度 */
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    position: relative;
+    margin-top: 10px;          /* 顶部稍微留一点空隙 */
 }
-.logout:hover {
-    text-decoration: underline;
+
+/* 退出按钮右上角 */
+.btn-logout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 12px;
+    background: #dc3545;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.btn-logout:hover {
+    background: #b52a37;
 }
 
 /* 搜索栏 */
 .search-bar {
-    margin-bottom: 20px;
+    margin: 15px 0;
 }
 .search-bar input {
     padding: 8px 12px;
-    width: 250px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    width: 250px;
 }
 .search-bar button {
     padding: 8px 16px;
-    background-color: #007BFF;
     border: none;
+    background: #007bff;
+    color: #fff;
     border-radius: 5px;
-    color: white;
     cursor: pointer;
-    margin-left: 5px;
 }
 .search-bar button:hover {
-    background-color: #0056b3;
+    background: #0056b3;
 }
 
-/* 表格样式 */
+/* 顶部按钮 */
+.top-actions {
+    margin-bottom: 15px;
+}
+.btn-add {
+    padding: 8px 16px;
+    background: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.btn-add:hover {
+    background: #218838;
+}
+
+/* 表格 */
 table {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-}
-th, td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
-}
-th {
-    background-color: #f9fafb;
-    font-weight: bold;
-}
-tr:hover {
-    background-color: #f1f5ff;
-}
-
-/* 操作按钮 */
-.btn {
-    padding: 6px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    margin: 0 3px;
+    margin-top: 10px;
     font-size: 14px;
 }
-.btn-edit {
-    background-color: #28a745;
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px 12px;
+    text-align: center;
 }
-.btn-edit:hover {
-    background-color: #218838;
-}
-.btn-delete {
-    background-color: #dc3545;
-}
-.btn-delete:hover {
-    background-color: #c82333;
+th {
+    background: #fafafa;
+    font-weight: bold;
 }
 
 /* 分页 */
@@ -107,86 +97,19 @@ tr:hover {
     text-align: center;
 }
 .pagination a {
-    display: inline-block;
-    padding: 6px 12px;
     margin: 0 3px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     text-decoration: none;
-    color: #007BFF;
+    color: #007bff;
+    padding: 6px 12px;
+    border: 1px solid transparent;
+    border-radius: 5px;
 }
 .pagination a.active {
-    background-color: #007BFF;
-    color: white;
+    font-weight: bold;
+    border: 1px solid #007bff;
+    background: #007bff;
+    color: #fff;
 }
 .pagination a:hover {
-    background-color: #0056b3;
-    color: white;
-}
-/* 表单样式 */
-.form-group {
-    text-align: left;
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-}
-
-textarea {
-    width: 100%;
-    min-height: 100px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    resize: vertical;
-}
-
-/* 表单按钮区域 */
-.form-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-/* 🔹整体等比例扩大，不改样式 */
-.container {
-    max-width: 1600px;    /* 容器更宽一些，接近全屏 */
-    padding: 30px;        /* 内边距也稍微加大 */
-}
-
-/* 🔹标题稍微大点 */
-h2 {
-    font-size: 26px;
-}
-
-/* 🔹表格字体、间距放大 */
-th, td {
-    padding: 16px 20px;
-    font-size: 16px;
-}
-
-/* 🔹搜索栏输入框和按钮更大 */
-.search-bar input {
-    width: 300px;
-    padding: 10px 14px;
-    font-size: 15px;
-}
-.search-bar button {
-    padding: 10px 18px;
-    font-size: 15px;
-}
-
-/* 🔹操作按钮更大 */
-.btn {
-    padding: 8px 16px;
-    font-size: 15px;
-}
-
-/* 🔹分页按钮放大 */
-.pagination a {
-    padding: 8px 14px;
-    font-size: 15px;
+    border: 1px solid #007bff;
 }

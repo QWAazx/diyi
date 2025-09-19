@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>新增/编辑文案</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>新增文案</title>
+    <link rel="stylesheet" th:href="@{/css/copy-style.css}">
 </head>
 <body>
 <div class="container">
-    <h2 th:text="${copy.id != null} ? '编辑文案' : '新增文案'"></h2>
+    <h2>新增文案</h2>
 
-    <form th:action="@{/copy/save}" th:object="${copy}" method="post">
-        <!-- 隐藏ID -->
-        <input type="hidden" th:field="*{id}">
+    <form th:action="@{/copy/save}" th:object="${copy}" method="post" class="copy-form">
+        <label>标题</label>
+        <input type="text" th:field="*{title}" placeholder="请输入标题">
 
-        <div class="form-group">
-            <label for="title">标题</label>
-            <input type="text" id="title" th:field="*{title}" placeholder="请输入标题" required>
-        </div>
+        <label>内容</label>
+        <textarea th:field="*{content}" placeholder="请输入内容"></textarea>
 
-        <div class="form-group">
-            <label for="content">内容</label>
-            <textarea id="content" th:field="*{content}" placeholder="请输入内容" required></textarea>
-        </div>
+        <label>描述</label>
+        <input type="text" th:field="*{description}" placeholder="请输入描述">
 
-        <div class="form-group">
-            <label for="description">描述</label>
-            <input type="text" id="description" th:field="*{description}" placeholder="请输入描述">
-        </div>
-
-        <div class="form-group">
-            <label for="remark">备注</label>
-            <input type="text" id="remark" th:field="*{remark}" placeholder="请输入备注">
-        </div>
+        <label>备注</label>
+        <input type="text" th:field="*{remark}" placeholder="请输入备注">
 
         <div class="form-actions">
-            <button type="submit">保存</button>
-            <a th:href="@{/copy/list}" class="btn btn-edit">返回</a>
+            <button type="submit" class="btn-save">保存</button>
+            <a th:href="@{/copy/list}" class="btn-back">返回</a>
         </div>
     </form>
 </div>

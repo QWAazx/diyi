@@ -18,7 +18,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // 根据 ID 查询用户
+    // 根据 ID 查询
     public User findById(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
@@ -33,8 +33,21 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    // 根据用户名查询用户（登录/注册时用）
+    // 根据用户名查询
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    // 判断用户是否存在
+    public boolean exists(String username) {
+        return userRepository.findByUsername(username) != null;
+    }
+
+    // 注册新用户
+    public User register(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password); // 这里先用明文，后续可改成加密
+        return userRepository.save(user);
     }
 }

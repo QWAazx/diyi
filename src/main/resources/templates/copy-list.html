@@ -5,7 +5,10 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div class="container">
+<div class="main-card">
+    <!-- 退出按钮 -->
+    <a th:href="@{/logout}" class="btn-logout">退出登录</a>
+
     <h2>文案管理</h2>
 
     <!-- 搜索栏 -->
@@ -16,8 +19,7 @@
 
     <!-- 新增按钮 -->
     <div class="top-actions">
-        <a th:href="@{/copy/add}" class="btn btn-edit">+ 添加文案</a>
-        <a th:href="@{/logout}" class="logout">退出登录</a>
+        <a th:href="@{/copy/add}" class="btn-add">+ 添加文案</a>
     </div>
 
     <!-- 表格 -->
@@ -42,8 +44,8 @@
             <td th:text="${copy.description}"></td>
             <td th:text="${copy.remark}"></td>
             <td>
-                <a th:href="@{'/copy/edit/' + ${copy.id}}" class="btn btn-edit">编辑</a>
-                <a th:href="@{'/copy/delete/' + ${copy.id}}" class="btn btn-delete">删除</a>
+                <a th:href="@{/copy/edit/{id}(id=${copy.id})}">编辑</a>
+                <a th:href="@{/copy/delete/{id}(id=${copy.id})}">删除</a>
             </td>
         </tr>
         </tbody>
@@ -51,11 +53,17 @@
 
     <!-- 分页 -->
     <div class="pagination">
+        <a th:if="${copyPage.number > 0}"
+           th:href="@{/copy/list(page=${(copyPage.number - 1)}, keyword=${keyword})}">上一页</a>
+
         <a th:each="i : ${#numbers.sequence(0, (copyPage.totalPages - 1))}"
            th:href="@{/copy/list(page=${i}, keyword=${keyword})}"
            th:text="${i + 1}"
-           th:classappend="${i == copyPage.number} ? 'active'">
+           th:classappend="${i == copyPage.number ? ' active' : ''}">
         </a>
+
+        <a th:if="${copyPage.number + 1 < copyPage.totalPages}"
+           th:href="@{/copy/list(page=${copyPage.number+1}, keyword=${keyword})}">下一页</a>
     </div>
 </div>
 </body>

@@ -3,49 +3,45 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-body {
+    font-family: Arial, sans-serif;
     background-color: #f4f7fc;
-    font-family: 'Arial', sans-serif;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* 居中的白色容器 */
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 30px 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+/* 白色卡片容器 */
+body .card {
+    background: #ffffff !important;   /* 白色背景 */
+    padding: 40px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    width: 400px !important;
+    max-width: 90%;
     text-align: center;
-    box-sizing: border-box; /* 防止 padding 撑大 */
+    position: relative;
 }
 
 /* 标题样式 */
 .form-title {
-    text-align: center;
-    margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-/* 输入框 */
-input[type="text"], input[type="password"] {
+/* 输入框样式 */
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
-    box-sizing: border-box;
 }
 
-/* 按钮 */
+/* 按钮样式 */
 button {
     width: 100%;
     padding: 14px;
@@ -57,33 +53,26 @@ button {
     cursor: pointer;
     margin-top: 10px;
 }
-
 button:hover {
     background-color: #0056b3;
 }
 
-/* 错误信息 */
-p.error {
-    color: red;
+/* 错误信息样式 */
+.error-message {
+    color: red !important;
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 链接样式 */
+p {
     margin: 10px 0;
 }
-
-/* 底部提示文字，保证不会超出边框 */
-p.footer {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #333;
-    word-wrap: break-word;   /* 长文本自动换行 */
-    overflow-wrap: break-word;
-    white-space: normal;     /* 不允许单行撑出边框 */
-}
-
-/* 链接 */
-p.footer a {
+p a {
     color: #007BFF;
     text-decoration: none;
 }
-
-p.footer a:hover {
+p a:hover {
     text-decoration: underline;
 }

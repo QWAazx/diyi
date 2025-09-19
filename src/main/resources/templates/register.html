@@ -1,26 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>注册</title>
     <link rel="stylesheet" href="/css/login-register.css">
+    <style>
+        .card {
+            background: #ffffff !important;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 400px;
+            margin: 100px auto;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <!-- 标题在输入框上方，居中 -->
-    <h2 class="form-title">注册</h2>
+<div class="card">
+    <h2 class="form-title ">注册</h2>
+    <form th:action="@{/register}" method="post" onsubmit="return validateForm()">
+        <div>
+            <label for="username">用户名</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">密码</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="confirmPassword">确认密码</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
 
-    <form th:action="@{/register}" method="post">
-        <label>用户名:</label>
-        <input type="text" name="username" required>
+        <!-- 前端密码不一致提示 -->
+        <div id="passwordError" class="error-message" style="display:none;">
+            两次输入的密码不一致
+        </div>
 
-        <label>密码:</label>
-        <input type="password" name="password" required>
+        <!-- 后端报错提示 -->
+        <div th:if="${error}" class="error-message">
+            <p th:text="${error}"></p>
+        </div>
 
         <button type="submit">注册</button>
     </form>
-
-    <p th:if="${error}" th:text="${error}"></p>
-    <p>已有账号？<a th:href="@{/login}">返回登录</a></p>
+    <p>已有账号？ <a th:href="@{/login}">去登录</a></p>
 </div>
+
+<script>
+    function validateForm() {
+        let pwd = document.getElementById("password").value;
+        let confirmPwd = document.getElementById("confirmPassword").value;
+        let errorDiv = document.getElementById("passwordError");
+
+        if (pwd !== confirmPwd) {
+            errorDiv.style.display = "block";
+            return false;
+        } else {
+            errorDiv.style.display = "none";
+            return true;
+        }
+    }
+</script>
 </body>
 </html>

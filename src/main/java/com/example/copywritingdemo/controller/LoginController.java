@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LoginController {
@@ -17,7 +16,15 @@ public class LoginController {
 
     // 显示登录页面
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "registered", required = false) String registered,
+                            Model model) {
+        if (error != null) {
+            model.addAttribute("error", "用户名或密码错误");
+        }
+        if (registered != null) {
+            model.addAttribute("msg", "注册成功，请登录");
+        }
         return "login";
     }
 
@@ -28,43 +35,23 @@ public class LoginController {
                         HttpSession session,
                         Model model) {
         User user = userService.findByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
-            session.setAttribute("currentUser", user);
-            return "redirect:/copy/list"; // 登录成功跳转到文案列表
-        } else {
+
+        if (user == null) {
+            model.addAttribute("error", "用户不存在");
+            return "login";
+        }
+
+        if (!user.getPassword().equals(password)) {
             model.addAttribute("error", "用户名或密码错误");
             return "login";
         }
+
+        // 登录成功
+        session.setAttribute("currentUser", user);
+        return "redirect:/copy/list"; // 登录后跳转
     }
 
-    // 注册页面
-    @GetMapping("/register")
-    public String registerPage() {
-        return "register";
-    }
-
-    // 注册逻辑
-    @PostMapping("/register")
-    public String register(@RequestParam String username,
-                           @RequestParam String password,
-                           Model model,
-                           RedirectAttributes redirectAttributes) {
-        User existing = userService.findByUsername(username);
-        if (existing != null) {
-            model.addAttribute("error", "用户名已存在");
-            return "register";
-        }
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setPassword(password);
-        userService.save(newUser);
-
-        // 注册成功后跳回登录页并提示
-        redirectAttributes.addFlashAttribute("msg", "注册成功，请登录！");
-        return "redirect:/login";
-    }
-
-    // 退出登录
+    // 登出
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
