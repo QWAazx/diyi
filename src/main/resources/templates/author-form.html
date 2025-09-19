@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>编辑作者</title></head>
+<body>
+<h2 th:text="${author.id} == null ? '新增作者' : '编辑作者'"></h2>
+<form th:action="@{/author/save}" th:object="${author}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    姓名: <input th:field="*{name}"/><br/>
+    Email: <input th:field="*{email}"/><br/>
+    <button type="submit">保存</button>
+</form>
+<a th:href="@{/author/list}">返回列表</a>
+</body>
+</html>

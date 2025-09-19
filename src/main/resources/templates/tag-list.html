@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>标签管理</title>
+</head>
+<body>
+<h2>标签列表</h2>
+
+<form method="get" th:action="@{/tag/list}">
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="搜索标题或内容">
+    <button type="submit">搜索</button>
+</form>
+
+<a th:href="@{/tag/add}">新增标签</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>创建者</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>描述</th>
+        <th>备注</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="tag : ${tagPage.content}">
+        <td th:text="${tag.id}"></td>
+        <td th:text="${tag.creator}"></td>
+        <td th:text="${tag.title}"></td>
+        <td th:text="${tag.content}"></td>
+        <td th:text="${tag.description}"></td>
+        <td th:text="${tag.remark}"></td>
+        <td>
+            <a th:href="@{/tag/edit/{id}(id=${tag.id})}">编辑</a>
+            <a th:href="@{/tag/delete/{id}(id=${tag.id})}">删除</a>
+        </td>
+    </tr>
+</table>
+
+<div>
+    <a th:if="${!tagPage.first}" th:href="@{/tag/list(page=${tagPage.number-1}, size=${tagPage.size}, keyword=${keyword})}">上一页</a>
+    <span>第 [[${tagPage.number+1}]] 页 / 共 [[${tagPage.totalPages}]] 页</span>
+    <a th:if="${!tagPage.last}" th:href="@{/tag/list(page=${tagPage.number+1}, size=${tagPage.size}, keyword=${keyword})}">下一页</a>
+</div>
+
+</body>
+</html>

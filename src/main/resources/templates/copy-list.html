@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>文案管理</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>文案管理</h2>
+
+    <!-- 搜索栏 -->
+    <form method="get" th:action="@{/copy/list}" class="search-bar">
+        <input type="text" name="keyword" placeholder="搜索标题或内容" th:value="${keyword}">
+        <button type="submit">搜索</button>
+    </form>
+
+    <!-- 新增按钮 -->
+    <div class="top-actions">
+        <a th:href="@{/copy/add}" class="btn btn-edit">+ 添加文案</a>
+        <a th:href="@{/logout}" class="logout">退出登录</a>
+    </div>
+
+    <!-- 表格 -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>创建者</th>
+            <th>标题</th>
+            <th>内容</th>
+            <th>描述</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="copy : ${copyPage.content}">
+            <td th:text="${copy.id}"></td>
+            <td th:text="${copy.creator}"></td>
+            <td th:text="${copy.title}"></td>
+            <td th:text="${copy.content}"></td>
+            <td th:text="${copy.description}"></td>
+            <td th:text="${copy.remark}"></td>
+            <td>
+                <a th:href="@{'/copy/edit/' + ${copy.id}}" class="btn btn-edit">编辑</a>
+                <a th:href="@{'/copy/delete/' + ${copy.id}}" class="btn btn-delete">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 分页 -->
+    <div class="pagination">
+        <a th:each="i : ${#numbers.sequence(0, (copyPage.totalPages - 1))}"
+           th:href="@{/copy/list(page=${i}, keyword=${keyword})}"
+           th:text="${i + 1}"
+           th:classappend="${i == copyPage.number} ? 'active'">
+        </a>
+    </div>
+</div>
+</body>
+</html>

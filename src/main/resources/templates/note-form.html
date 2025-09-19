@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>笔记编辑</title>
+</head>
+<body>
+<h2 th:text="${note.id != null} ? '编辑笔记' : '新增笔记'"></h2>
+
+<form th:action="@{/note/save}" method="post" th:object="${note}">
+    <input type="hidden" th:field="*{id}">
+
+    <label>标题：</label>
+    <input type="text" th:field="*{title}" required><br>
+
+    <label>内容：</label>
+    <textarea th:field="*{content}" required></textarea><br>
+
+    <label>描述：</label>
+    <input type="text" th:field="*{description}"><br>
+
+    <label>备注：</label>
+    <input type="text" th:field="*{remark}"><br>
+
+    <button type="submit">保存</button>
+    <a th:href="@{/note/list}">返回</a>
+</form>
+
+</body>
+</html>

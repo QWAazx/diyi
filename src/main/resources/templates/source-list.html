@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>资源管理</title>
+</head>
+<body>
+<h2>资源列表</h2>
+
+<form method="get" th:action="@{/source/list}">
+    <input type="text" name="keyword" th:value="${keyword}" placeholder="搜索标题或内容">
+    <button type="submit">搜索</button>
+</form>
+
+<a th:href="@{/source/add}">新增资源</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>创建者</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>描述</th>
+        <th>备注</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="source : ${sourcePage.content}">
+        <td th:text="${source.id}"></td>
+        <td th:text="${source.creator}"></td>
+        <td th:text="${source.title}"></td>
+        <td th:text="${source.content}"></td>
+        <td th:text="${source.description}"></td>
+        <td th:text="${source.remark}"></td>
+        <td>
+            <a th:href="@{/source/edit/{id}(id=${source.id})}">编辑</a>
+            <a th:href="@{/source/delete/{id}(id=${source.id})}">删除</a>
+        </td>
+    </tr>
+</table>
+
+<div>
+    <a th:if="${!sourcePage.first}" th:href="@{/source/list(page=${sourcePage.number-1}, size=${sourcePage.size}, keyword=${keyword})}">上一页</a>
+    <span>第 [[${sourcePage.number+1}]] 页 / 共 [[${sourcePage.totalPages}]] 页</span>
+    <a th:if="${!sourcePage.last}" th:href="@{/source/list(page=${sourcePage.number+1}, size=${sourcePage.size}, keyword=${keyword})}">下一页</a>
+</div>
+
+</body>
+</html>

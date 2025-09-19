@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>资源编辑</title>
+</head>
+<body>
+<h2 th:text="${source.id != null} ? '编辑资源' : '新增资源'"></h2>
+
+<form th:action="@{/source/save}" method="post" th:object="${source}">
+    <input type="hidden" th:field="*{id}">
+
+    <label>标题：</label>
+    <input type="text" th:field="*{title}" required><br>
+
+    <label>内容：</label>
+    <textarea th:field="*{content}" required></textarea><br>
+
+    <label>描述：</label>
+    <input type="text" th:field="*{description}"><br>
+
+    <label>备注：</label>
+    <input type="text" th:field="*{remark}"><br>
+
+    <button type="submit">保存</button>
+    <a th:href="@{/source/list}">返回</a>
+</form>
+
+</body>
+</html>

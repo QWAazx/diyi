@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Copywriting Demo</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/copy/list}">文案</a> |
+    <a th:href="@{/author/list}">作者</a> |
+    <a th:href="@{/tag/list}">标签</a> |
+    <a th:href="@{/note/list}">备注</a> |
+    <a th:href="@{/source/list}">来源</a> |
+    <a th:href="@{/logout}">退出</a>
+</nav>
+<hr>
+<div th:insert="~{::body}"></div>
+</body>
+</html>

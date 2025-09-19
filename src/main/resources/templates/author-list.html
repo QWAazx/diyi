@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>作者列表</title></head>
+<body>
+<h2>作者列表</h2>
+<a th:href="@{/author/add}">新增作者</a> | <a th:href="@{/}">返回首页</a>
+<table border="1">
+    <tr>
+        <th>ID</th><th>姓名</th><th>Email</th><th>操作</th>
+    </tr>
+    <tr th:each="a : ${authorPage.content}">
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.name}"></td>
+        <td th:text="${a.email}"></td>
+        <td>
+            <a th:href="@{/author/edit/{id}(id=${a.id})}">编辑</a>
+            <a th:href="@{/author/delete/{id}(id=${a.id})}">删除</a>
+        </td>
+    </tr>
+</table>
+<div>
+    <a th:if="${!authorPage.first}" th:href="@{/author/list(page=${authorPage.number-1})}">上一页</a>
+    <span th:text="${authorPage.number+1}"></span> / <span th:text="${authorPage.totalPages}"></span>
+    <a th:if="${!authorPage.last}" th:href="@{/author/list(page=${authorPage.number+1})}">下一页</a>
+</div>
+</body>
+</html>
